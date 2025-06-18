@@ -2,11 +2,16 @@ from flask import Flask,request,jsonify
 from functools import wraps
 from dotenv import load_dotenv
 import os
+from flask_cors import CORS
+
 
 # Load .env variables
 load_dotenv()
 
 app = Flask(__name__)
+
+CORS(app, supports_credentials=True, resources={r"/api/*": {"origins": ["https://razinco-procurement.web.app/", "http://localhost:4200"]}})
+
 
 # Read the token from the environment
 API_TOKEN = os.getenv("API_TOKEN")
