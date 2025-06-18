@@ -10,7 +10,7 @@ load_dotenv()
 
 app = Flask(__name__)
 
-CORS(app, supports_credentials=True, resources={r"/api/*": {"origins": ["https://razinco-procurement.web.app/", "http://localhost:4200"]}})
+CORS(app, supports_credentials=True, resources={r"/api/*": {"origins": ["https://razinco-procurement.web.app", "http://localhost:4200"]}})
 
 
 # Read the token from the environment
