@@ -1,10 +1,31 @@
 from flask import Flask,request,jsonify
+from functools import wraps
+from dotenv import load_dotenv
+import os
+
+# Load .env variables
+load_dotenv()
 
 app = Flask(__name__)
 
+# Read the token from the environment
+API_TOKEN = os.getenv("API_TOKEN")
+
 store = {}
 
+def authenticate(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        token = request.headers.get("Authorization")
+        expected_token = f"Bearer {API_TOKEN}"
+        if token != expected_token:
+            return jsonify({"message": "Unauthorized"}), 401
+        return f(*args, **kwargs)
+    return decorated
+
+
 @app.route('/api/set', methods=['POST'])
+@authenticate
 def set_value():
     data = request.json
     key = data.get('key')
@@ -18,6 +39,7 @@ def set_value():
 
 
 @app.route('/api/get',methods=['POST'])
+@authenticate
 def get_value():
     data = request.json
     key = data.get('key')
