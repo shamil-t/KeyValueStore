@@ -102,7 +102,7 @@ Retrieve the value for a given key.
 This API allows cross-origin requests from:
 
 - `http://localhost:4200`
-- `https://razinco-procurement.web.app`
+- `Enter your host url`
 
 ---
 
